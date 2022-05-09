@@ -1,3 +1,4 @@
+import 'package:crypto_watcher/Service/data_respository_service.dart';
 import 'package:crypto_watcher/widgets%20/items_list_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,12 @@ class _CryptoPageState extends State<CryptoPage> {
        child: ListView.builder(
          itemCount: 10,
          itemBuilder: (BuildContext context, int index) {
-         return ItemList();
+         return GestureDetector(
+           onTap:(){Navigator.pushNamed(context, 'detail');
+           final data = DataRepositoryService();
+             },
+             child: ItemList()
+         );
        },
 
        ),

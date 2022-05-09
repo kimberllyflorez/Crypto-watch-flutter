@@ -9,19 +9,34 @@ class DestailCryptoPage extends StatelessWidget {
       body: Column(
         children: [
           Row(
-            children: [
-
+            children: const[
+              ImageCrypto(),
+              Text('data'),
             ],
-          )
+          ),
+          Text('data')
+
         ],
       ),
     );
   }
 }
-class _imagecryto {
-  //FadeInImage(
-  //   placeholder: AssetImage('assets/betcoin.jpeg') ,
-  //   image: NetworkImage('https://via.placeholder.com/500x300'),
-  //   fit: BoxFit.cover,
-  //   ),
+class ImageCrypto extends StatelessWidget {
+  const ImageCrypto({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 30),
+      height: 200,
+      width: 200,
+      child: FadeInImage(
+        placeholder: AssetImage('assets/betcoin.jpeg'),
+        image: AssetImage('assets/betcoin.jpeg'),
+        fit: BoxFit.cover,
+      ),
+    );
+  }
 }
+
+

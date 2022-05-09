@@ -12,21 +12,9 @@ class WatchListPage extends StatelessWidget {
       ),
       body: Column(
         children:[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                color: Colors.grey,
-                height: 100,
-                width: 100,
-              ),
-              Icon(Icons.star),
-            ],
-          ),
-          Container(
-            child: Text('hello wirfasa '),
-          ),
+          Text('lista de monedas'),
         ]
+
       ),
     );
   }

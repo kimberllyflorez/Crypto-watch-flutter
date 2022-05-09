@@ -1,3 +1,4 @@
+import 'package:crypto_watcher/Pages/details_cryto_page.dart';
 import 'package:crypto_watcher/Pages/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
       initialRoute:'' ,
       routes: {
         'homePage':(_)=> HomePage(),
+        'detail': (_)=> DestailCryptoPage(),
       },
     );
   }
