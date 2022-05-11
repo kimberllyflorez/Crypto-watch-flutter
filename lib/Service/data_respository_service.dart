@@ -1,8 +1,5 @@
 
-
 import 'package:crypto_watcher/Service/data_service.dart';
-import 'package:flutter/material.dart';
-
 import '../model/model.dart';
 
 class DataRepositoryService {
@@ -15,7 +12,17 @@ class DataRepositoryService {
   }
 
   Future getProjectsData() async {
-    final data = await Service.get('/api/v3/coins/marketsgu');
+    var params = {
+      'vs_currency': 'usd',
+      'order':'market_cap_desc',
+      'per_page': 1000,
+      'page':1,
+      'sparkline':true,
+
+    };
+    final data = await Service.get(
+       segment:  '/api/v3/coins/marketsgu',queryParams: params
+    );
     coinData = CoinModel.fromJson(data.toString());
      print(coinData);
 
