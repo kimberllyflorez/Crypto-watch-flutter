@@ -1,31 +1,25 @@
+import 'dart:convert';
 
 import 'package:crypto_watcher/Service/data_service.dart';
 import '../model/model.dart';
 
 class DataRepositoryService {
   final Service = DataService();
-  CoinModel? coinData;
+  List<CoinModel> coinData = [];
 
-  DataRepositoryService() {
-
-    getProjectsData();
-  }
-
-  Future getProjectsData() async {
+  Future<List<CoinModel>> getProjectsData() async {
     var params = {
       'vs_currency': 'usd',
-      'order':'market_cap_desc',
-      'per_page': 1000,
-      'page':1,
-      'sparkline':true,
-
+      'order': 'market_cap_desc',
     };
     final data = await Service.get(
-       segment:  '/api/v3/coins/marketsgu',queryParams: params
-    );
-    coinData = CoinModel.fromJson(data.toString());
-     print(coinData);
+        segment: '/api/v3/coins/markets', queryParams: params);
+    final List<dynamic> listCoins = jsonDecode(data);
+    for (var element in listCoins) {
+      coinData.add(CoinModel.fromMap(element));
+    }
 
+    return coinData;
   }
 }
 //al llamar la clase trae lo que esta dentro del constructor

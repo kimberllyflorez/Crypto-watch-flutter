@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 
 class ItemList extends StatefulWidget {
-  const ItemList({Key? key}) : super(key: key);
+  final String name;
+  final double value;
+
+  const ItemList({
+    Key? key,
+    required this.name,
+    required this.value,
+  }) : super(key: key);
 
   @override
   State<ItemList> createState() => _ItemListState();
-
 }
 
 class _ItemListState extends State<ItemList> {
-  late bool  isSelect;
+  late bool isSelect;
 
   @override
   void initState() {
@@ -20,17 +26,18 @@ class _ItemListState extends State<ItemList> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children:  [
-        Text('nombre de la moneda'),
-        Text('valor de la moneda'),
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(child: Text(widget.name)),
+        Text(widget.value.toString()),
+        const SizedBox(width: 30),
         IconButton(
           onPressed: () {
             isSelect = !isSelect;
-            setState(() {
-            });
+            setState(() {});
           },
-          icon: Icon(Icons.star,
+          icon: Icon(
+            Icons.star,
             color: isSelect ? Colors.red : Colors.orangeAccent,
           ),
         ),
