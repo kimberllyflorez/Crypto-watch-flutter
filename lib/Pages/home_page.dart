@@ -1,5 +1,7 @@
 import 'package:crypto_watcher/Pages/pages.dart';
+import 'package:crypto_watcher/bloc/coin_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -9,12 +11,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-   int currentIndex = 0;
+  int currentIndex = 0;
 
   final List<Widget> _widgetsPages = <Widget>[
     CryptoPage(),
     WatchListPage(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

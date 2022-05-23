@@ -1,10 +1,11 @@
 part of 'coin_bloc.dart';
 
 @immutable
-abstract class CoinEvent{}
+abstract class CoinEvent extends Equatable {
 
-class ActiveCoint extends CoinEvent{
-  final CoinModel coin;
+}
 
-  ActiveCoint(this.coin);
+class LoadCoinsEvent extends CoinEvent {
+  @override
+  List<Object> get props => [];
 }

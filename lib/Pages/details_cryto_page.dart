@@ -29,6 +29,7 @@ class DestailCryptoPage extends StatelessWidget {
           ),
           ListTile( title: Text('Market cap: ${coin?.marketCap.toString()}') ) ,
           ListTile( title: Text('Market cap: ${coin?.priceChange24H.toString()}') ) ,
+          ListTile( title: Text('Market cap: ${coin?.lastUpdated.toString()}') ) ,
 
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:crypto_watcher/Pages/details_cryto_page.dart';
 import 'package:crypto_watcher/Pages/home_page.dart';
+import 'package:crypto_watcher/Service/data_respository_service.dart';
 import 'package:crypto_watcher/bloc/coin_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,23 +14,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-            create: (_)=> CoinBloc())
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+    return RepositoryProvider(
+      create: (context) => DataRepositoryService(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => CoinBloc(context.read()),
+          ),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            primarySwatch: Colors.orange,
+          ),
+          home: const HomePage(),
+          initialRoute: '',
+          routes: {
+            'homePage': (_) => const HomePage(),
+            'detail': (_) => const DestailCryptoPage(),
+          },
         ),
-        home: const HomePage(),
-        initialRoute:'' ,
-        routes: {
-          'homePage':(_)=> HomePage(),
-          'detail': (_)=> DestailCryptoPage(),
-        },
       ),
     );
   }

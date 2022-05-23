@@ -1,8 +1,9 @@
 import 'package:crypto_watcher/Service/data_respository_service.dart';
+import 'package:crypto_watcher/bloc/coin_bloc.dart';
 import 'package:crypto_watcher/model/model.dart';
 import 'package:crypto_watcher/widgets%20/items_list_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CryptoPage extends StatefulWidget {
   const CryptoPage({Key? key}) : super(key: key);
@@ -26,20 +27,23 @@ class _CryptoPageState extends State<CryptoPage> {
       appBar: AppBar(
         title: const Text('CRYPTO'),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(10),
-        alignment: Alignment.center,
-        child: FutureBuilder(
-          future: _callData(),
-          builder: (context, AsyncSnapshot<List<CoinModel>> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+      body: BlocProvider(
+        create: (context) => CoinBloc(
+          RepositoryProvider.of<DataRepositoryService>(context),
+        )..add(LoadCoinsEvent()),
+        child: BlocBuilder<CoinBloc, CoinState>(
+          builder: (context, state) {
+            if (state is LoadingCoinsState) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             }
-            if (snapshot.hasData) {
+            if (state is CoinInitState) {
+              final coinList = state.coins;
               return ListView.builder(
-                itemCount: snapshot.data?.length,
+                itemCount: coinList?.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final CoinModel? coin = snapshot.data?[index];
+                  final CoinModel? coin = coinList?[index];
                   return InkWell(
                     onTap: () {
                       Navigator.pushNamed(
@@ -49,24 +53,18 @@ class _CryptoPageState extends State<CryptoPage> {
                       );
                     },
                     child: ItemList(
-                      name: coin?.name ?? '',
-                      value: coin?.currentPrice ?? 0.0,
+                      coin: coin
                     ),
                   );
                 },
               );
             }
             return const Center(
-              child: Text('No data'),
+              child: Text('No coin data'),
             );
           },
         ),
       ),
     );
-  }
-
-  Future<List<CoinModel>> _callData() async {
-    final dataRepo = DataRepositoryService();
-    return await dataRepo.getProjectsData();
   }
 }
