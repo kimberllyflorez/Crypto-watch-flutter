@@ -16,12 +16,21 @@ class ItemList extends StatefulWidget {
 
 class _ItemListState extends State<ItemList> {
 
-  late bool isSelect;
+  late bool isSelect = false;
 
   @override
   void initState() {
-    isSelect = false;
     super.initState();
+    _loadSelect();
+  }
+  void _loadSelect () async {
+    final coins = PreferenceUtils.getStringList('listCoin') ?? [];
+    isSelect = _validateCoinExist(coins, widget.coin?.id);
+    final json = widget.coin!.toJson();
+    await PreferenceUtils.setStringList('listCoin', [json]);
+    setState(() {
+
+    });
   }
 
   @override
@@ -37,7 +46,7 @@ class _ItemListState extends State<ItemList> {
           IconButton(
             onPressed: () {
               isSelect = !isSelect;
-              _saveCoin(widget.coin?.id ?? '');
+              _saveCoin(widget.coin?.toJson() ?? '');
               setState(() {});
             },
             icon: Icon(
@@ -51,7 +60,7 @@ class _ItemListState extends State<ItemList> {
   }
 }
 
-_saveCoin(String value)async{
+_saveCoin(String value) async{
   final List<String>? coinList =
       await PreferenceUtils.getStringList('listCoin');
   if(coinList != null){
