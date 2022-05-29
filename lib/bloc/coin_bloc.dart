@@ -36,4 +36,33 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     );
   }
 
+  saveCoin(CoinModel? coin) async {
+    final List<String>? coinList = await PreferenceUtils.getStringList('listCoin');
+    if (coinList != null) {
+      int? indexCoin = validateCoinExist(coinList, coin?.id ?? '');
+      if (indexCoin != null) {
+        coinList.removeAt(indexCoin);
+      } else {
+        coinList.add(coin?.toJson() ?? '');
+      }
+      await PreferenceUtils.setStringList('listCoin', coinList);
+    } else {
+      await PreferenceUtils.setStringList('listCoin', [coin?.toJson() ?? '']);
+    }
+  }
+
+  int? validateCoinExist(List<String> coinList, String value) {
+    int? index;
+    if (value.isNotEmpty && coinList.isNotEmpty) {
+      for (int i = 0; i < coinList.length; i++) {
+        CoinModel coinModel = CoinModel.fromJson(coinList[i]);
+        if (coinModel.id == value) {
+          index = i;
+          break;
+        }
+      }
+    }
+    return index;
+  }
+
 }

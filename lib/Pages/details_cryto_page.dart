@@ -1,6 +1,9 @@
+import 'package:crypto_watcher/bloc/coin_bloc.dart';
 import 'package:crypto_watcher/model/model.dart';
+import 'package:crypto_watcher/widgets%20/star_icon_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DestailCryptoPage extends StatelessWidget {
   const DestailCryptoPage({Key? key}) : super(key: key);
@@ -14,23 +17,17 @@ class DestailCryptoPage extends StatelessWidget {
         title: Text(coin?.name ?? ''),
       ),
       body: Column(
-
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ImageCrypto(imageCoin: coin?.image ?? ''),
-              Icon(
-                Icons.star,
-                size: 100,
-                color: Colors.orangeAccent,
-              ),
+              StarIcon(coin: coin,)
             ],
           ),
-          ListTile( title: Text('Market cap: ${coin?.marketCap.toString()}') ) ,
-          ListTile( title: Text('Market cap: ${coin?.priceChange24H.toString()}') ) ,
-          ListTile( title: Text('Market cap: ${coin?.lastUpdated.toString()}') ) ,
-
+          ListTile(title: Text('Market cap: ${coin?.marketCap.toString()}')),
+          ListTile(title: Text('Market cap: ${coin?.priceChange24H.toString()}')),
+          ListTile(title: Text('Market cap: ${coin?.lastUpdated.toString()}')),
         ],
       ),
     );

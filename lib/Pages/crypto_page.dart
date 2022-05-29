@@ -52,9 +52,7 @@ class _CryptoPageState extends State<CryptoPage> {
                         arguments: coin,
                       );
                     },
-                    child: ItemList(
-                      coin: coin
-                    ),
+                    child: ItemList(coin: coin),
                   );
                 },
               );
