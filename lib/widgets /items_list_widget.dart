@@ -1,9 +1,6 @@
-import 'package:crypto_watcher/bloc/coin_bloc.dart';
 import 'package:crypto_watcher/model/model.dart';
-import 'package:crypto_watcher/preference/utils_preference.dart';
 import 'package:crypto_watcher/widgets%20/star_icon_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ItemList extends StatelessWidget {
   final CoinModel? coin;

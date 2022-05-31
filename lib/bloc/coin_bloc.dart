@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 
-
 part 'coin_event_bloc.dart';
 
 part 'coin_state_bloc.dart';
@@ -24,20 +23,33 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
         emit(LoadingCoinsState());
         try {
           final coins = await _dataService.getProjectsData();
-          final saveListCoin = await PreferenceUtils.getStringList('listCoin');
           emit(CoinInitState(
             coins: coins,
-            saveCoins: saveListCoin ?? [],
           ));
         } catch (e) {
           emit(ErrorCoinsState());
         }
       }),
     );
+    on<CoinSave>(
+      ((event, emit) async {
+        try {
+          final saveState = state as CoinInitState;
+          emit((LoadingCoinsState()));
+          await saveCoin(event.selectCoin);
+          emit(CoinInitState(
+            coins: saveState.coins,
+          ));
+        } catch (e) {
+          print(e);
+        }
+      }),
+    );
   }
 
   saveCoin(CoinModel? coin) async {
-    final List<String>? coinList = await PreferenceUtils.getStringList('listCoin');
+    final List<String>? coinList =
+        await PreferenceUtils.getStringList('listCoin');
     if (coinList != null) {
       int? indexCoin = validateCoinExist(coinList, coin?.id ?? '');
       if (indexCoin != null) {
@@ -64,5 +76,4 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     }
     return index;
   }
-
 }

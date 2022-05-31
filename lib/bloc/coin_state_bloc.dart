@@ -14,6 +14,8 @@ class CoinInitState extends CoinState {
   CoinInitState({this.coins, this.saveCoins});
 }
 
+
+
 class LoadingCoinsState extends CoinState {}
 
 class ErrorCoinsState extends CoinState {}

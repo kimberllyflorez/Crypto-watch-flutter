@@ -20,6 +20,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+  BlocProvider.of<CoinBloc>(context).add(LoadCoinsEvent());
     super.initState();
   }
 

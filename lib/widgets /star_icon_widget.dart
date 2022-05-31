@@ -39,12 +39,12 @@ class _StarIconState extends State<StarIcon> {
     return IconButton(
       onPressed: () {
         isSelect = !isSelect;
-        BlocProvider.of<CoinBloc>(context).saveCoin(widget.coin);
+        BlocProvider.of<CoinBloc>(context).add(CoinSave(widget.coin));
         setState(() {});
       },
       icon: Icon(
         Icons.star,
-        color: isSelect ? Colors.red : Colors.orangeAccent,
+        color: isSelect ? Colors.red : Colors.grey,
       ),
     );
   }
