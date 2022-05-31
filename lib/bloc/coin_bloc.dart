@@ -41,7 +41,6 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
             coins: saveState.coins,
           ));
         } catch (e) {
-          print(e);
         }
       }),
     );

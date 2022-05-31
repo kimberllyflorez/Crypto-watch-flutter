@@ -32,10 +32,7 @@ class _CryptoPageState extends State<CryptoPage> {
               itemCount: coinList?.length,
               itemBuilder: (BuildContext context, int index) {
                 final CoinModel? coin = coinList?[index];
-                return InkWell(
-                  onTap: () => onGoCryptoCoin(coin),
-                  child: ItemList(coin: coin),
-                );
+                return ItemList(coin: coin);
               },
             );
           }
@@ -47,11 +44,5 @@ class _CryptoPageState extends State<CryptoPage> {
     );
   }
 
-  onGoCryptoCoin(coin) async {
-      Navigator.pushNamed(
-        context,
-        'detail',
-        arguments: coin,
-      );
-  }
+
 }

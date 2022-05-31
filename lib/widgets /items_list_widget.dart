@@ -12,19 +12,29 @@ class ItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(left: 20, right: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(child: Text(coin?.name ?? '')),
-          Text(coin?.currentPrice?.toString() ?? '0.0'),
-          const SizedBox(width: 20),
-          StarIcon(
-            coin: coin,
-          )
-        ],
+    return InkWell(
+      onTap: ()=> onGoCryptoCoin(context, coin),
+      child: Container(
+        margin: const EdgeInsets.only(left: 20, right: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(child: Text(coin?.name ?? '')),
+            Text(coin?.currentPrice?.toString() ?? '0.0'),
+            const SizedBox(width: 20),
+            StarIcon(
+              coin: coin,
+            )
+          ],
+        ),
       ),
+    );
+  }
+  onGoCryptoCoin(BuildContext context, coin) async {
+    Navigator.pushNamed(
+      context,
+      'detail',
+      arguments: coin,
     );
   }
 }
